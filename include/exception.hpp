@@ -18,7 +18,7 @@ namespace ts {
 
   class CustomError : public std::exception {
   public:
-    explicit CustomError(std::string msg) : _msg(std::move(msg)) {}
+    explicit CustomError(std::string msg) : msg_(std::move(msg)) {}
 
     explicit CustomError(const char *__restrict format, ...) {
       static char buf[512];
@@ -30,7 +30,7 @@ namespace ts {
       va_end(ap);
 
       if (len < max_len) {
-        _msg = std::string(buf);
+          msg_ = std::string(buf);
       } else {
         auto str = new char[len + 2];
 
@@ -38,17 +38,17 @@ namespace ts {
         vsprintf(str, format, ap);
         va_end(ap);
 
-        _msg = std::string(str);
+          msg_ = std::string(str);
         delete[] str;
       }
     }
 
     const char *what() const noexcept override {
-      return _msg.c_str();
+      return msg_.c_str();
     }
 
   private:
-    std::string _msg;
+    std::string msg_;
   };
 
 }
