@@ -114,6 +114,16 @@ namespace ts {
     TensorShape shape_;
     std::shared_ptr<T> data_;
   };
+
+  template<typename T>
+  Tensor<T> ones(const TensorShape &shape) {
+    Tensor<T> tensor(shape);
+
+
+
+    return tensor;
+  }
+
 }
 
 #endif //TENSORSCRIPT_TENSOR_HPP
